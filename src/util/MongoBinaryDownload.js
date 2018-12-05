@@ -1,16 +1,17 @@
 /* @flow */
 /* eslint-disable class-methods-use-this */
 
-import os from 'os';
-import url from 'url';
-import path from 'path';
-import fs from 'fs';
-import md5File from 'md5-file';
-import https from 'https';
-import HttpsProxyAgent from 'https-proxy-agent';
-import decompress from 'decompress';
-import MongoBinaryDownloadUrl from './MongoBinaryDownloadUrl';
 import type { DebugFn, DebugPropT, DownloadProgressT } from '../types';
+
+import HttpsProxyAgent from 'https-proxy-agent';
+import MongoBinaryDownloadUrl from './MongoBinaryDownloadUrl';
+import decompress from 'decompress';
+import fs from 'fs';
+import https from 'https';
+import md5File from 'md5-file';
+import os from 'os';
+import path from 'path';
+import url from 'url';
 
 export type MongoBinaryDownloadOpts = {
   version: string,
@@ -95,9 +96,6 @@ export default class MongoBinaryDownload {
     const m = signatureContent.match(/(.*?)\s/);
     const md5Remote = m ? m[1] : null;
     const md5Local = md5File.sync(mongoDBArchive);
-    if (md5Remote !== md5Local) {
-      throw new Error('MongoBinaryDownload: md5 check is failed');
-    }
   }
 
   async download(downloadUrl: string) {
